@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>(gentle (introduce Clojure))</title>
+
+    <!-- meta name author stuff -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>A gentle introduction to Clojure</h1>
+					<h3>(gentle (introduce Clojure)) - Talking with a LISP</h3>
+					<p>
+						<small>By <a href="http://xsyn.co.za">Guy Taylor</a> / <a href="http://twitter.com/xsyn">@xsyn</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>(def @xsyn)</h2>
+          <p>
+            Ok, so who am I and why do I know anything?
+          </p>
+          <p class="fragment">
+            I don't...
+            <ul>
+              <li class="fragment">I've been playing with Clojure for about 3 years now -
+                Making me a Clojure blue belt.</li>
+              <li class="fragment">I'm a freelancer, currently building an analytics
+                cluster for TYME, a mobile banking solutions
+                provider.</li>
+              <li class="fragment">I'm the father of 5 month old twins
+              <small class="fragment">(So I know a thing or two about concurrency)</small>.</li>
+            </ul>
+          </p>
+
+					<aside class="notes">
+						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
+					</aside>
+				</section>
+
+        <section>
+          <h2>(def introduction)</h2>
+					<p>
+					<blockquote>
+						&ldquo;If you want everything to be familiar, you will
+						never learn anything new. cuz it can't be significantly
+						different from what you already know and not drift away
+						from the familiarity.&rdquo; -- Rich Hickey
+					</blockquote>
+          <p class="fragment">Sure...but why Clojure?</p>
+          <p class="fragment">Let's start by identifying what it is</p>
+        </section>
+
+				<!-- Example of nested vertical slides -->
+				<!-- In order to describe Clojure I'm going to go from the
+				familar to the different -->
+        <section>
+					<section>
+						<h2>(clojure.set/intersection Clojure Scala)</h2>
+						<p>
+              Clojure and Scala are similiar in a number of ways
+						</p>
+            <ul>
+              <li class="fragment">Functional language</li>
+              <li class="fragment">Hosted on the JVM</li>
+              <li class="fragment">Java interop</li>
+            </ul>
+					</section>
+					<section>
+						<h2>(clojure.set/difference Clojure Scala)</h2>
+            <p>
+              <ul>
+                <li class="fragment">Dynamically typed</li>
+                <li class="fragment">Enforced immutability</li>
+                <li class="fragment">It's a LISP
+                <small class="fragment">OMG! WTF? Brackets ?! Interrobang!</small></li>
+					</section>
+          <section>
+            <h2>(def immutability)</h2>
+            <h3>The hardest button to button...until..</h3>
+            <img src="img/git-norefs.png" class="fragment"/>
+					</section>
+            <section>
+						<h2>(def LISP)</h2>
+The entire LISP universe is based around the following structure:
+					<pre><code class="clojure" data-trim contenteditable>
+(verb noun noun)
+					</code></pre>
+						<a class="parenthesis" href="http://xkcd.com">
+							<img src="img/lisp_cycles.png" alt="*VWOOM*">
+						</a>
+					</section>
+					</section>
+
+        <section>
+          <h2>(so? Clojure)</h2>
+          <p>
+          <ul>
+            <li class="fragment">LISPs are awesome</li>
+            <li class="fragment">Really cool tooling</li>
+            <li class="fragment">I've never had so much fun with a programming language</li>
+            <li class="fragment">Worth the personal growth</li>
+          </ul>
+        </section>
+
+				<section>
+          <section>
+					<h2>(def scalar-literals)</h2>
+					<h3>Characters</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+\c ; Character
+(class \c) ;= java.lang.Character
+\space
+\newline
+\formfeed
+\return
+\backspace
+\tab
+					</code></pre>
+					<h3>Strings</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+"hello" ; String
+(class "hello") ; = java.lang.String 
+;BUT strings are also collections. Hold that thought...
+
+					</code></pre>
+
+				</section>
+          <section>
+					<h2>(def scalar-literals)</h2>
+					<h3>Numbers</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+42, 0xff, 2r111, 040 ;  long (64 bit signed integer)
+3.14, 6.02139864 ; double (64 bit floating point decimal)
+42N ; clojure.lang.BigInt (arbitary precision integer)
+0.01M; java.math.BigDecimal (arbitary precision signed floating point decimal) 
+22/7; clojure.lang.Ratio
+					</code></pre>
+
+				</section>
+          <section>
+					<h2>(def scalar-literals)</h2>
+					<h3>Booleans</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+nil; nil
+true; true
+false; false
+(= true 1); false
+(= false nil); false
+					</code></pre>
+
+				</section>
+					</p>
+					<aside class="notes">
+            I want to delve straight into the language, but I'm going
+            to use these building blocks so that we come from a
+            foundation. Please stop and ask questions if you don't
+            understand here.
+					</aside>
+				</section>
+</section>
+
+<section>
+          <section>
+					<h2>(def collection-literals)</h2>
+					<pre><code class="clojure" data-trim contenteditable>
+'(a b :name 2) ; list
+[a b :name 2] ; vector
+#{1 2 3} ; set
+{:name Guy :nick xsyn} ; map
+					</code></pre>
+          Pretty straight foward, but the work in very different ways.
+				</section>
+
+          <section>
+					<h2>(def collection-literals)</h2>
+          <h3>Lists</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+'(1 2 3) ; (1 2 3)
+(list 1 2 3) ; (1 2 3)
+(conj 4 (1 2 3) ; (4 1 2 3)
+(first '(1 2 3)) ; 1
+(second '(1 2 3)) ; 2
+(nth '(1 2 3) 2) ; 3
+;; Read in a linear order, NOT indexed, useful for small collections 
+;; Internally stored as a chain of values
+
+					</code></pre>
+          Lists are not used as frequently as other Clojure collection types.
+				</section>
+
+          <section>
+					<h2>(def collection-literals)</h2>
+          <h3>Vectors</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+[1 2 3] ; [1 2 3] 
+(vec '(1 2 3)) ; [1 2 3]
+(conj 4 (1 2 3) ; [1 2 3 4]
+(next [1 2 3]) ; [2 3]
+(= '(1 2 3) [1 2 3]) ; true
+;; Indexed, good for large collections, more frequently used than lists
+;; Internally stored as trees
+
+					</code></pre>
+          Lists are not used as frequently as other Clojure collection types.
+				</section>
+          <section>
+					<h2>(def collection-literals)</h2>
+          <h3>Sets</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+#{1 2 3} ; #{1 2 3} 
+(set [1 1 1 2 2 2 3 3 3]) ; #{1 2 3}
+(clojure.set/union #{1 2 3} #{4 5}) ; #{1 2 3 4 5}
+(clojure.set/difference #{1 2 3} #{2 3}) ; #{1}
+(clojure.set/intersection #{1 2 3} #{2 3}) ; #{2 3}
+;; Unique items in set, mathematical sets
+
+					</code></pre>
+				</section>
+
+          <section>
+					<h2>(def collection-literals)</h2>
+          <h3>Maps</h3>
+					<pre><code class="clojure" data-trim contenteditable>
+{:name "Guy" :nick "xsyn" :age 34} ; {:age 34, :name "Guy", :nick "xsyn"}
+(def xsyn {:name "Guy" :nick "xsyn" :age 34}) ; #'<namespace>/xsyn
+(keys xsyn) ; (:age :name :nick)
+(vals xsyn) ; (34 "Guy" "xsyn")
+(get xsyn :name} ; ("Guy")
+(:name xsyn) ; ("Guy")
+(merge xsyn  {:languages {:clojure true
+:scala false}))
+; {:name "Guy" :nick "xsyn" :age 34 :languages {:clojure
+; true :scala false}
+(get-in {:name "Guy" :nick "xsyn" :age 34 :languages {:clojure
+ true :scala false} [:nick :languages]}
+(get-in xsyn [:languages :scala]) ;nil
+(get-in {:name "Guy" :nick "xsyn" :age 34 :languages {:clojure true
+                :scala true}} [:languages :clojure]) ; true 
+;; Do not retain sequence
+
+					</code></pre>
+				</section>
+</section>
+
+<section>
+  <h2>(def PersistentVector)</h3>
+<pre><code>
+(def brown [0 1 2 3 4 5 6 7 8])
+(def blue (assoc brown 5 'beef))
+</code></pre>
+<img src="img/update.png"/>
+<p>Source: <a href="http://hypirion.com/musings/understanding-persistent-vector-pt-1">http://hypirion.com/musings/understanding-persistent-vector-pt-1</a>
+</section>
+				<section>
+					<h2>(defn f [x] (f x))</h2>
+          <p>
+            Functions are the verbs of Clojure, everything you do you
+            do through f [x].
+          </p>
+          <pre><code class="clojure" data-trim contenteditable>
+(defn count-to-infinity [number]
+    "Print numbers to infinity. You should probably not run this"
+    (println count-to-infinity (inc number)))
+          </code></pre>
+					<pre><code class="clojure" data-trim contenteditable>
+(defn fibs []
+    "Fibonnaci sequence demo function"
+     (map first 
+         (iterate 
+             (fn [[a b]] [b (+ a b)]) [0 1])))
+					</code></pre>
+          <p>
+            Functions turn values into values.
+					</p>
+				</section>
+
+				<section>
+					<h2>(defmacro f [x] (f x))</h2>
+          <p>
+           Macros turn code into code.
+          </p>
+          <pre><code class="clojure" data-trim contenteditable>
+(defmacro ignore
+  "Cancels the evaluation of an expression, returning nil instead."
+  [expr]
+  nil)
+
+user=> (ignore (+ 1 2))
+nil
+					</code></pre>
+					</p>
+				</section>
+
+				<section>
+					<h2>(ns foo.bar)</h2>
+          <p>
+           Mappings from symbols to vars and classes
+          </p>
+          <pre><code class="clojure" data-trim contenteditable>
+(ns data.core
+  (:use [incanter.core]
+        [incanter.io]
+        [incanter.charts]
+        [data.helpers]
+        [clj-time.format :as t]))		
+
+(defn datemap [date]
+  "Date formatter"
+  (parse (t/formatter "YY/MM/dd") date))			
+
+</code></pre>
+					</p>
+				</section>
+
+				<section>
+					<h2>(.interop Java)</h2>
+          <p>
+          </p>
+          <pre><code class="clojure" data-trim contenteditable>
+(defn fetch-url[address]
+  (with-open [stream (.openStream (java.net.URL. address))]
+    (let  [buf (java.io.BufferedReader. 
+                (java.io.InputStreamReader. stream))]
+      (apply str (line-seq buf)))))
+
+#'user/fetch-url
+
+user=> (fetch-url "http://google.com")
+
+"&lt;!doctype html&gt;...
+
+...&lt;/html&gt;"
+
+;; Importing Java libraries
+(import '(java.io FileReader))
+
+          </code></pre>
+				</section>
+
+  <section>
+
+    <section>
+    <h2>Leiningen</h2>
+    <h3>for automating Clojure projects without setting your hair on
+      fire</h3>
+    <img src="img/leiningen.jpg" />
+  </section>
+
+  <section>
+    <h2>Building a project</h2>
+    <pre><code class="bash" data-trim contenteditable>
+$ lein new foobar
+
+Generating a project called foobar based on the 'default' template.
+To see other templates (app, lein plugin, etc), try `lein help new`.
+
+$ cd foobar && ls
+
+LICENSE     README.md   doc         project.clj resources   src         test        
+    </pre></code>
+  </section>
+
+  <section>
+    <h2>Boilerplate Project.clj</h2>
+    <pre><code class="clojure" data-trim contenteditable>
+(defproject foobar "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]])
+
+    </pre></code>
+    </section>
+  <section>
+    <h2>Actual Project.clj</h2>
+    <pre><code class="clojure" data-trim contenteditable>
+(defproject data "0.1-alpha"
+  :description "Data shunting playground"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"]
+                 [incanter/incanter-core "1.5.4"]
+                 [incanter/incanter-io "1.5.4"]
+                 [incanter/incanter-charts "1.5.4"]
+                 [incanter/incanter-excel "1.5.4"]
+                 [clj-time "0.6.0"]
+                 [org.clojure/data.json "0.2.1"]
+                 [org.apache.hadoop/hadoop-core "1.1.2"]
+                 [org.clojure/data.csv "0.1.2"]]
+  :main data.core
+  :jvm-opts ["-Xmx6G" "-server" "-Djsse.enableSNIExtension=false"] )
+
+    </pre></code>
+    </section>
+</section>
+
+				<section>
+					<h2>(def ungoogleable)</h2>
+					<h3>
+						A bunch of symbols that you'll see, but will find hard to
+						google </h3>
+          <p>Some Examples:
+					<pre><code class="clojure" data-trim contenteditable>
+# ; The Dispatch Macro
+#{ ; The set macro, we've already seen this
+#_ ; The discard macro
+#&quot; ; The regular expression macro
+#( ; The function macro
+#' ; The var macro
+% ; Arguement placeholder
+@ ; Deref macro
+^ ; Metadata
+					</code></pre>
+Source: <a href="http://yobriefca.se/blog/2014/05/19/the-weird-and-wonderful-characters-of-clojure">http://yobriefca.se/blog/2014/05/19/the-weird-and-wonderful-characters-of-clojure</a>
+				</section>
+
+        <section>
+          <section>
+          <h2>(lazy-seq (doc introductions))</h2>
+          <h3>Books</h3>
+          <p><img src="img/cat.gif"/><br/>
+            Clojure Programming - Chas Emerick</p>
+            <p><img src="img/fogus2_cover150.jpg"><br/>The Joy of
+              Clojure - Michael Fogus <br/>
+(v2 release 31 May)</p>
+            </section>
+          <section>
+          <h2>(lazy-seq (doc introductions))</h2>
+          <h3>Videos</h3>
+ <p><a href="http://www.infoq.com/author/Rich-Hickey">http://www.infoq.com/author/Rich-Hickey</a></p>
+          <ul>
+            <li>Are we there yet - Rich Hickey</li>
+            <li>The value of values - Rich Hickey</li>
+            <li>Simple made easy - Rich Hickey</li>
+            </ul>
+          <p></p>
+         
+          <p>
+          While these are videos are by Clojure's author, they shine
+          light on the philisophical underpinnings of Clojure, and are
+          worth watching even if you never touch it.
+          </p>
+          </section>
+          <section>
+          <h2>(lazy-seq (doc introductions))</h2>
+          <h3>Online</h3>
+          <ul>
+            <li>Clojure-Koans: http://clojurekoans.com</li>
+            <li>Aphyr’s Clojure from the ground up: http://aphyr.com/posts/301-clojure-from-the-ground-up-welcome</li>
+            <li>IRC: freenode.irc.net - #Clojure #Clojure.za</li>
+            <li>BUILD SOMETHING</li>
+            </ul>
+            </section>
+        </section>
+
+
+				<section>
+					<h2>(questions? presentation)</h2>
+					<h3>(thank you) (follow @xsyn)</h3>
+          <p>Presentation
+          available on Github at:<a href="https://github.com/xsyn/intro-to-clojure"> https://github.com/xsyn/intro-to-clojure</a>
+				</section>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.pack.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
